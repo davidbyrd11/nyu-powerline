@@ -1,0 +1,15 @@
+{{# user }}
+<div class="img-container">
+  <img src="{{ imgURL }}" alt="{{ name }}"/>
+  <a href="/users">&larr; back</a>
+</div>
+<div class="user-description img-description">
+  <h1>{{ name }}</h1>
+  <dl class="metadata-list">
+    <dt>email</dt><dd>{{ email }}</dd>
+    <dt>power</dt><dd>{{{ power }}}</dd>
+    <dt>top tools</dt><dd>{{ tools }}</dd>
+    <dt>best work</dt><dd>{{ best }}</dd>
+  </dl>
+  {{/ user }}
+</div>

@@ -1,0 +1,24 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'install', '-d' ]
+info using npm@1.1.16
+info using node@v0.6.15
+verbose config file /Users/david/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+ERR! Couldn't read dependencies.
+ERR! Error: ENOENT, open '/Users/david/Documents/Tweec_it/T/package.json'
+ERR! You may report this log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Darwin 11.4.0
+ERR! command "node" "/usr/local/bin/npm" "install" "-d"
+ERR! cwd /Users/david/Documents/Tweec_it/T
+ERR! node -v v0.6.15
+ERR! npm -v 1.1.16
+ERR! path /Users/david/Documents/Tweec_it/T/package.json
+ERR! code ENOENT
+ERR! message ENOENT, open '/Users/david/Documents/Tweec_it/T/package.json'
+ERR! errno {}
+verbose exit [ 1, true ]
