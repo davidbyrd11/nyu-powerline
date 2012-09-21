@@ -1,0 +1,363 @@
+/***** RESET (some of these elements no longer exist -- like applet, font, & acronym -- but i've left most of them because it can only help). *****/
+  /* Basic Meyer-esque Reset, not including links, lists, buttons, or <q>/<blockquote> */
+  html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, acronym, address, cite, code,
+  del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video  
+  {margin:0;padding:0;border:0;font:inherit;outline:0;font-size:100%;vertical-align: baseline;background:transparent;} 
+  body { line-height: 1; } table{border-collapse:collapse;border-spacing:0;}
+  
+  /* my reset additions */
+  a {margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline;background:transparent} /* Add back the Meyer Reset on  <a>'s except for outline, which we often want to leave native  */
+  button, input, select, textarea, optgroup, option { margin: 0; font-size:100%; } /* form resets */
+  
+  /* yui reset additions */
+  html{color:#000; background:#FFF; }
+  caption,th{text-align:left; }
+  legend { color:#000; /*because legend doesn't inherit in IE */ }
+  input,textarea,select, button { font-family:inherit; font-size:inherit; font-weight:inherit; }
+  
+  /* HTML5 element display */
+  article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary { display: block; font-size:100%; }
+  audio[controls], canvas, video { display: inline-block; *display: inline; *zoom: 1; }
+
+  /* normalizers â€” i.e. that make cross-browser behavior consistent, rather than the "blast-it-all-out" reset */
+  textarea { overflow: auto; } /* Tweak for IE www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
+  legend { *margin-left: -7px; } /* IE always shifts legends right by 7px (regardless of text size). */
+  img { -ms-interpolation-mode: bicubic; } /* Fix IE7's nasty image resizing */
+  svg:not(:root) { overflow: hidden; } /* Correct overflow displayed oddly in IE9 */
+  /* 1. Define line-height as normal to match FF3/4 (set using !important in the UA stylesheet)
+   * 2. Correct inner spacing displayed oddly in IE6/7 http://is.gd/hVSb4W */
+  button, input { line-height: normal; *overflow: visible; *width: auto; }
+  /* Allows styling of clickable form elements in iOS */
+  button, input[type="reset"], input[type="button"], input[type="submit"] { -webkit-appearance: button; }
+  input[type="checkbox"], input[type="radio"] { box-sizing: border-box; }
+  input[type="search"] { -moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+  button, input, select { vertical-align: baseline; *vertical-align: middle; }
+  textarea { vertical-align: top; }
+  /* Remove inner padding in FF3/4. Must keep border or we change element's visual character; introduce browser discrepancies 
+   * www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+  button::-moz-focus-inner, input::-moz-focus-inner { padding: 0; }
+  /* Declare sans-serif fallback for proper sizing: en.wikipedia.org/wiki/User:Davidgothberg/Test59 */
+  pre, code, kbd, samp, tt { font-family: monospace, sans-serif; _font-family: 'courier new', monospace; }
+    /* Align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+  input[type="radio"] { vertical-align: bottom; }
+  input[type="checkbox"] { vertical-align: text-bottom; *vertical-align: baseline;}
+  .ie6 input { vertical-align: text-bottom; } 
+
+
+/************************ GENERIC EXTENDERS/MIXINS ********************/
+  /* Hides from visual users but not screenreaders. see http://yaccessibilityblog.com/library/css-clip-hidden-content.html */
+  .visually-hidden, .accessibility {position: absolute !important; border:0 !important; height: 1px !important; padding:0 !important; width: 1px !important; clip: rect(0 0 0 0); margin: -1px !important; overflow: hidden; }
+  /* Extends the .visuallyhidden class to allow the element to be focusable when navigated to via the keyboard: drupal.org/node/897638 */
+  .visually-hidden.focusable:active, .accessibility.focusable:active, .visually-hidden.focusable:focus, .accessibility.focusable:focus 
+  { clip:auto; height:auto !important; margin:0 !important; overflow:visible !important; position:static !important; width:auto !important; }
+    
+    .off { display:none; }
+
+    .ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; color:transparent !important;  }    /* Image Replacement*/
+    
+    /* Clearfix. Makes a parent expand to contain floated children. Described in style.css in more detail than you ever wanted. 
+       For the rare cases this doesn't work: http://nicolasgallagher.com/micro-clearfix-hack/ */
+    .group:before, .group:after { content: "\0020"; display: block; height: 0; overflow: hidden;  }
+    .group:after { clear: both; }
+    .group { *zoom: 1; } /* IE6 & 7 */
+
+
+/************************ GENERIC ELEMENT STYLES ********************/
+    body { text-rendering: optimizeLegibility; font-variant-ligatures: common-ligatures additional-ligatures; /* add extra ligatures! */ font-variant-numeric: oldstyle-nums; /* default to oldstyle nums */ 
+     -moz-font-feature-settings:"liga=1, dlig=1, onum=1"; /* copy the above ligatures, oldstyle nums the firefox/opentype way. for now. */}
+  
+    /* For the q tag, I'm going to add quotes automatically. The below works in the latest Chrome, Firefox, IE, and Opera. 
+       It works almost perfectly in IE 6-8. In Safari, a double prime (") is always used instead of a quote. Good enough. */
+    q {quotes: "\201c" "\201d" "\2018" "\2019"; }
+    q {*behavior: behavior:url(fixQuotes_en.htc); /* Fix quotes in IE6, 7 */ } 
+    q:before {content:open-quote}
+    q:after {content:close-quote}
+    q > q:last-child:after {content:close-quote'\0020'; /* When a single ending quote is next to a double ending quote, add a space between them. (and add back the quote from above since the ::after will replace it. */ }
+    .ie6 q > q:last-child:after > q, .ie7 q > q:last-child:after {content: ' '; } /* overrides the standard q > q rule above. Adds only the space and not the close quote, because the behavior adds that already.
+                      /* If the browser doesn't support :last-child and :after (which may or may not be the case, depending on IE polyphills), then this rule and
+                      /* the standard q > q rule won't apply, so the space will simply be missing.No big deal. */     
+    blockquote p:first-child:before {content:"\201c"; } 
+    blockquote p:last-child:after {content:"\201d"; }
+    blockquote > q:last-child:after {content:close-quote'\0020'; /* I need this b/c my blockquotes get quotes. Mirrors reset's q > q rule */ }
+
+    strong, b { font-weight: bold; }
+    em, i {font-style:italic; }
+    
+    .boxsizing input[type="radio"], .boxsizing input[type="checkbox"] {vertical-align:top; } /* if we have border box, our inputs will probably be border-box and made one baseline high, so the v-align should be just top or bottom */
+    table { border-collapse: collapse; border-spacing: 0; } /* tables still need 'cellspacing="0"' in the markup */
+    th {font-weight: bold; vertical-align: bottom; text-align:left; }
+    td {font-weight: normal; vertical-align: top; }
+
+    label, input[type="button"], input[type="submit"], input[type="reset"], input[type="image"], button { cursor: pointer; } /* Hand cursor on clickable inputs. */
+    
+    sup, sub { line-height: 0; position: relative; vertical-align: baseline; /* use position relative to maintain the rythym */ }
+
+
+/************************ CUSTOM ELEMENT STYLES ********************/
+/* Color pallete reference. These are the only colors that should be in this sheet!
+ *
+ * #??? for body text
+ * #??? for support/secondary text
+ * 
+ * #??? for links, nav bar
+ * #??? for primary (page specific) callouts; used rather than gray to inject some life
+ * 
+ * #??? for when the user is "approaching an error" (e.g. running out of characters)
+ * #??? for (form) error text
+ *
+ * #??? for 'grayed out' content that still needs to be readable (placeholders, faded out nav links)
+ * #??? for secondary 'grayed out' content (like the faded out nav subheadings) + icons, borders, & separators
+ * #??? for the background color of secondary sections, secondary notifications
+ * #??? for the page's background and links on the nav bar
+ */
+body {
+    font-family:Georgia, 'Times New Roman', serif;
+    color:#111;
+    font-size:1.0625em;/* 17/25.5 */
+    line-height:1.5em; 
+    /* it's rare, but because of the measures we already have going in this
+       project/grid, we actually don't want to enable extra hyphenation here.  */
+
+
+       /* 
+        * set the text size in rems and column size in ems. zoom the entire layout by changing html rem size. 
+        * if we just want to change the text size we change the ems 
+        */
+}
+
+p, ul, ol, dl, li {
+  margin-bottom:.75em; /* body text elems get half a baseline margin bottom */
+}
+
+a {
+  color:#225e4a;
+}
+  
+
+sup, sub {font-size:80%; text-shadow: 0 0 0; } /* font must be smaller; slight shadow compesates for the thinning (only has effect in FF) */
+sup {top: -0.4em; left: .025em; }              /* LEFT property set carefully by experimenting; intentionally not on <sub>; */
+sub {bottom: -0.2em; }                         /* only applicable probably to 16px Georgia on Mac. */
+
+tr {border-bottom:.0666em solid #ccc; }
+tbody tr:hover, tbody tr:focus {background:#f5f5f5; }
+td {padding:.4em .6666em .3333em; /* 35px high, 36 w/ the bottom border; 10px padding on each side (they always comply w/ grid that way b/c we have no nested tables); no gutter for now. just the padding. */ }
+th { padding:0 .6666em; }
+
+/* Headings */
+h1, h2, h3, h4, .h1, .h2, .h3, .h4 {
+  font-weight:bold;
+} 
+
+h1, .h1 {
+  font-size: 38.25px;
+  font-size: 2.25rem;
+  line-height: 51px;
+  line-height: 3rem;
+  margin-bottom:0;
+}
+
+h2, .h2 {
+  font-size: 28px;
+  font-size:1.64705882353rem;
+  line-height: 38.25px;
+  line-height: 2.25rem;
+  margin-bottom:0;
+}
+
+h3, .h3 {
+  font-size: 18.729px;
+  font-size: 1.10170588235rem; 
+  line-height: 25.5px;
+  line-height:1.5rem; /* 18.729/25.5 */
+  margin:0;
+}
+
+/* h4, .h4 {
+  font-size:1em;
+  line-height:1.2em;
+  margin-bottom:0;
+}
+
+h5, .h5 {
+  color:#555;
+  font-size:0.8em;
+  line-height:2em;
+  font-weight:normal;
+  letter-spacing:0.5px;
+  text-transform:uppercase;
+  font-family:Arial, sans-serif;
+  -webkit-transition: color .25s linear;
+  transition: color .25s linear;
+  margin-bottom: 0;
+  margin-top:0;
+} */
+
+/* Forms */
+textarea {
+  width:100%;
+  height:15em;/* 10 baselines (255/17) */
+}
+
+label {
+  display:block;
+}
+
+input, select, textarea { /* try border box. If it's not supported, some of our elements will be a bit too wide, but that's fine. */
+    -webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input, select, textarea, article, section { /* @todo better spacing rules re article and section, esp. if they can obviate margins on callouts/notifications and twitter module */
+    /* margin-bottom:1.6em; */ /* form & big content elems get a full baseline margin bottom */
+}
+
+.boxsizing input, .boxsizing select, .boxsizing button {
+    height:1.5em; /* don't bother trying to get form elements' heights to comply with the baseline (too messy cross-browser) unless we have border-box */
+}
+
+input[type="submit"] {
+  display:block;
+}
+
+/************************ OBJECTS ********************************/
+
+/* Notes: List of choosable options, like in a nav or toolbar. 
+   Required Markup: <* class="optionList"><li (or class="li")>This option</li></*>. Each "li" usually has an <a> */
+.optionList {list-style-type:none; *zoom: 1; /* IE6 & 7 clearfix */ }
+.optionList .li, .optionList li {float:left; margin-bottom:0; margin-right:1em; }
+.optionList li:last-child, .optionList .li:last-child {margin-right:0; }
+.optionList:after  { visibility: hidden; display: block; font-size: 0; content: " "; clear: both; height: 0; } /* behave like a group */
+
+
+/* Notes: Describes list of key–value metadata pairs; maps most neatly to HTML5's <dl> element. 
+   Required Markup: Standard DL (<dl class="metadata-list"><dt>Term</dt><dd>Definition</dd></dl>) or a different element instead of <dl>,   
+                  with classes of .key and .value on the respective elements. */
+.metadataList dd, .metadataList dt, .metadataList .key, .metadataList .value {display: inline; }
+.metadataList dt:after, .metadataList .key:after  {content:': '; }
+.metadatalist dt:before, .metadataList .key:before {content: "\00000A"; white-space: pre; /* a line break between metadata elements */ }
+.metadataList dt:first-of-type:before, .metadataList .key:first-of-type:before {content:''; }  
+.metadataList dt, .metadataList .key {font-style:italic; }
+
+
+/* extends optionlist; activated by js, with no links in the li */
+.tabList {border-bottom:.0666em solid #111; margin-top:-.1333em; /* so we're back on baseline after the borders */ margin-bottom:1.6em; }
+.tabList li, .tabList .li {
+  margin-right:0; 
+  position:relative; top:.06666em;
+  border:.0666em solid transparent; /* always have a left-right border (it's just invisible normally) so we don't get tab jump on change */ 
+  border-bottom:none;
+  padding:0 .6em; /* 9px padding + 1px of always present border = 10px on each side. */
+}
+.tabList li.active, .tabList .li.active {border-color:#111; background:white;  /* cover up the bottom border with a white bg (combined with shifting the tab down from prior rule) */ }
+.tabList li:hover, .tabList .li:hover, .tabList li:focus, .tabList .li:focus {cursor:pointer; color:#225e4a; }
+
+.wrapper {margin-bottom:1.5em; } /* describes a meaningless div added around elements to group them. because it will remove the margin-bottom of the inner :last-child, we add it back here */
+ 
+.minimizeHeight {position:relative; }
+.minimizeHeight .as-supporting {position:absolute; top:0; right:0; }
+
+/*** LAYOUT ***/
+/*   Grid is 10 units (52px wide each, with 10px inner padding on each side) and 30px gutters */
+
+.page {width:42em; margin:0 auto; }
+.content { width:45.6em; /*684px; always a container, so it's width can be set on that assumption */ }
+.as-supporting, .as-secondary, .content-nav { width:6.6em; }
+
+.content-nav, .content {margin-bottom:1.6em; /* just to make sure we don't hit the bottom edge of the page */ }
+
+/* Our "treated as column" types/roles */
+.content, .content-nav, .with-supporting, .with-secondary { float:left; margin-right:2em; }
+.content {margin-right:0; /* "last col" */}
+.as-supporting, .as-secondary {float:right;}
+
+
+
+/************************ EXTENDERS/MIXINS ********************************/
+.current {
+  font-weight:bold !important; /* important needed b/c of specificity increase from the rough .tabList li * interaction */
+  color:#225e4a !important;    /* important required here b/c of specificity increase from .discoverable-context hack   */
+}                                /* Hacks = specificity wars. ugh. */ 
+
+.disabled { color:#aaa; }
+
+.almost-error { color:#ee8a8a; }
+.error { color: #be3a3a; }
+
+
+/* When used on inputs (as opposed to tables--which are inputs that are output), 
+   these widths assume border-box sizing. If that's not present (IE<8), the inputs
+   will be a bit too wide, which is fine. */
+.expects-lte-100 { width:44.26666em; }
+.expects-lte-75  { width:30.66666em; }
+.expects-lte-50  { width:23.86666em; }
+.expects-lte-45  { width:17.06666em; }
+.expects-lte-20  { width:10.26666em; }
+.expects-lte-10  { width:6.13333em;  }
+.boxsizing .expects-gt-100  { width:100%; min-width:44.2666em; } /* if this isn't border box, it might cause column drop */
+.expects-gt-100 {width:98%; } /* no boxsizing fallback */
+
+.validate .form-ui-invalid {background-color:#e8baba; border-color:#e8baba; }
+/*
+.content * {padding-left:10px; padding-right:10px; }
+.content input, .content select, .content textarea {margin-left:10px; margin-right:10px; padding-left:0; padding-right:0; }
+.content .container, .content div, .content table, .content thead, .content tbody, .content tr, .content header, .content article, .content section, .content form, .content fieldset, .content span {padding-left:0; padding-right:0; }
+*/
+
+
+/***** INTERACTIONS BETWEEN OBJECTS AND OTHER OBJECTTS,
+        MIXINS AND OTHER MIXINS, OR OBJECTS AND MIXINS ********************/
+nav ul, nav ol {list-style-type:none; }
+
+.section, .container > div, .container > article, .container > header, .container > section, .container > form > fieldset, .container > fieldset, .container > nav { padding-left:.66667em; padding-right:.66667em; }
+.container, .container > .container, .container > form > .container { padding:0; }
+
+.external-link-table .link:hover .external {background-image:url('../images/external_hover.jpg'); }
+
+p:last-child, ul:last-child, ol:last-child, dl:last-child, li:last-child, select:last-child, textarea:last-child, article:last-child, section:last-child, input:last-child, input[type="checkbox"]:nth-last-child(2) { /*checkboxes second from last count as last b/c they're followed always by an inline label */
+  margin-bottom:0;
+}
+td:last-child {padding-right:.6666em; } /* remove gutter on last td */
+
+/* form elements go to the bottom of the baseline (have no half-leading), so we need to alter the margins to fake it */
+.conditional-section.with-form-elements.condition-met {padding-bottom:.533333em; /* 8px rather than 24px */}
+.conditional-section.with-form-elements.condition-met {margin-bottom:1.0666em; /* with the remaining 16 coming here. */ }
+
+.condition-met .as-supporting, .condition-met .as-secondary {background-color: white; width:16.4em; margin-right:.6666em; /* has to be a bit narrower (even though off grid) to not go up against the edge of the gray bg */} 
+
+.optionList li.as-secondary, .optionList .li.as-secondary {float:right; } /* if we have secondary items within the same list (a split list of sorts, which is a bit rare) honor the float right */
+
+
+/*************** UNIQUE STUFF & TO DO ***********************/
+.tabbed-on .folder {display: none;}
+.tabbed-on .visible.folder {display: block;}
+
+
+/* neat typekit fallbacks */
+.wf-active h3, .wf-active .h3 {
+  letter-spacing:-1px;
+  letter-spacing:-.08rem;
+}
+
+
+.validity-alert-wrapper {overflow: visible !important; }
+.validity-alert {margin-left:-.666em; }
+.validity-alert .va-arrow  {left:10px !important; }
+.va-box {
+  background: white !important;
+  color: #be3a3a  !important;
+  border: .0666em solid #111 !important;
+  padding: .333em .6em !important;
+  border-radius: 2px !important;
+  zoom: 1 !important;
+  min-width: 10em !important; 
+  max-width: 25em !important;
+}
+.check {display:block; position:absolute; width:33px; /*10px padding + the 23px wideimage */ background-image:url('../images/valid.png'); background-position: right 1px;  }
+.toggle .check {display:none; }
+
+.input-maxlength {position: relative; }
+.input-maxlength input, .input-maxlength .input {padding-right:2.5em; }
+.input-maxlength .remaining-chars {position: absolute; right:.76923em; /* 10px */ top:1.84615em; /* 24px */ display: block; line-height: 1.84615em; }

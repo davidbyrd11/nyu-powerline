@@ -1,0 +1,122 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <!-- Force Latest IE rendering & Chrome Frame -->
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://f.fontdeck.com/s/css/l4MsFun30OJhB9DTDGcb8JQSAOQ/localhost/23103.css" type="text/css" />
+    <script src="javascripts/modernizr.js"></script>
+    <script src="javascripts/yepnope.preload.js"></script>
+    <script type="text/javascript" src="//use.typekit.net/ulm2uef.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script>
+    yepnope([
+        {
+            load:{
+                "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js", 
+                "scripts": "javascripts/app.js",
+            },
+            callback: function (url, result, key) {
+                if (key==="jquery" && !window.jQuery) {
+                    yepnope('javascripts/local_fallbacks/jquery.1.7.0.min.js');
+                }
+            }
+        },
+        {
+            load: [] //put jquery plugins here in the future 
+        },
+        {
+            load: ["javascripts/tabs/signals.js", "javascripts/tabs/hasher.js", "javascripts/tabs/jquery.tabs.js"]     //(third is for tabs; first two for cross-browser hashchange detection &  hash setting + history management)
+        }     
+    ]);
+      // var oldLocation = location.href;
+      // setInterval(function() {
+        
+
+
+      //   if(location.href != oldLocation) {
+      //       console.log("Show users with " + window.location.hash.slice(1) + " experience");
+
+      //       if(window.location.hash.slice(1) != 'designer' || window.location.hash.slice(1) != 'developer' || window.location.hash.slice(1) != 'hybrid') {
+      //         $.each($('article[data-skills]'), function(index, value){
+      //           value.setAttribute('style', 'display:block;');
+      //           var skills = value.getAttribute('data-skills');
+      //           if(skills.indexOf(window.location.hash.slice(1)) == -1){
+      //             value.setAttribute('style', 'display:none;');
+      //           }
+      //         });
+      //       }
+
+      //       oldLocation = location.href
+      //   }
+
+
+
+
+      // }, 100);
+    </script>
+
+  </head>
+  <body class="page">
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <div class="tabbed">
+      <% for(var groupName in userGroups) { %>
+        <section id="<%= groupName %>">
+          <h2><%=: groupName|title %></h2>
+          <% userGroups[groupName].forEach(function(user) { %>
+            <ul>
+              <li>
+                <article class="minimizeHeight" data-skills="<%= user.buzzwords %>">
+                  <h3><%=: user.name|title %> <span>(<%= user.isAvailable ? "Available" : "Busy" %>)</span></h3>
+                  <ul class="optionList as-supporting">
+                    <% 
+                      var sites = [user.githubName, user.personalURL, user.twitterName];
+                      var linkBase = '',
+                          siteTitle = '';
+
+                      for(var i = 0, len = sites.length; i < len; i++) { 
+                        if(sites[i]) { 
+                          switch(i) { 
+                            case 0:
+                              linkBase = 'http://github.com/';
+                              siteTitle = "<img style='width: 1.5em;' src='http://groxli.com/images/th_github.jpg' />";
+                              break;
+                            case 1:
+                              linkBase = '';
+                              siteTitle = "<img style='width: 1.5em;' src='http://blog.picol.org/wp-content/uploads/2008/07/globe_512.png' />";
+                              break;
+                            case 2:
+                              linkBase = 'http://twitter.com/';
+                              siteTitle = "<img style='width: 1.5em;' src='http://clipartist.info/www/COLOURINGBOOK.ORG/Letters/S/simple_icon_twitter_black_white_line_art_coloring_book_colouring-555px.png' />";
+                              break;
+                          }
+                    %>
+
+
+
+                            <li><a href="<%= linkBase + sites[i] %>"><%- siteTitle%></a></li>
+                    <%  
+                        }
+                      } 
+                    %>
+                  </ul>
+                  <dl class="metadataList" style="max-width: 32em;">
+                    <dt>Skills</dt>
+                    <% user.buzzwords.forEach(function(word){ %>
+                      <dd><a href="#<%= word %>"><%= word %></a>,</dd>
+                    <% }) %>
+                  </dl>
+                </article>
+              </li>
+            </ul>
+          <% }) %>
+        </section>
+      <% } %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <!-- Force Latest IE rendering & Chrome Frame -->
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://f.fontdeck.com/s/css/l4MsFun30OJhB9DTDGcb8JQSAOQ/localhost/23103.css" type="text/css" />
+    <script src="javascripts/modernizr.js"></script>
+    <script src="javascripts/yepnope.preload.js"></script>
+    <script type="text/javascript" src="//use.typekit.net/ulm2uef.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script>
+    yepnope([
+        {
+            load:{
+                "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js", 
+                "scripts": "javascripts/app.js",
+            },
+            callback: function (url, result, key) {
+                if (key==="jquery" && !window.jQuery) {
+                    yepnope('javascripts/local_fallbacks/jquery.1.7.0.min.js');
+                }
+            }
+        },
+        {
+            load: [] //put jquery plugins here in the future 
+        },
+        {
+            load: ["javascripts/tabs/signals.js", "javascripts/tabs/hasher.js", "javascripts/tabs/jquery.tabs.js"]     //(third is for tabs; first two for cross-browser hashchange detection &  hash setting + history management)
+        }     
+    ]);
+    </script>
+
+  </head>
+  <body class="page">
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <form name="application" action="/apply" method="post">
+
+      <label for="name">Name</label>
+      <input name="name" id="name" type="text" />
+
+      <label for="email">Email</label>
+      <input name="email" id="email" type="text" />
+
+      <label for="developer">Developer</label>
+      <input name="developer" id="developer" type="checkbox" />
+
+      <label for="designer">Designer</label>
+      <input name="designer" id="designer" type="checkbox" />
+
+      <label for="github">Github</label>
+      <input name="github" id="github" type="text" />
+
+      <label for="personal">Personal Site</label>
+      <input name="personal" id="personal" type="text" />
+
+      <label for="twitter">Twitter Handle</label>
+      <input name="twitter" id="twitter" type="text" />
+
+      <label for="available">Available for Hire</label>
+      <input name="available" id="available" type="radio" />
+
+      <label for="buzzwords">Skills (seperate w/ comma)</label>
+      <input name="buzzwords" id="buzzwords" type="textarea" style="width: 30em; height: 15em;">
+
+      <input type="submit" value="Apply" />
+
+    </form>
+  </body>
+</html>
